@@ -25,15 +25,18 @@ $(function() {
         const url = '/check-userid.jsp';
         const parameter = {
             userId: userId,
-            abc: "test"
-        };
+            pwd: '1234'
+        }
         $.ajax({
             type: 'POST',
             url: url,
             data: parameter,
             success: function (res) {
                 const jsonResult = JSON.parse(res);
-                alert(jsonResult.message);
+                if (!jsonResult.result) {
+                    alert(jsonResult.message);
+                }
+
             },
             error: function (xmlHttpReqeust, status, errorThrow) {
                 console.log(xmlHttpReqeust, status, errorThrow);

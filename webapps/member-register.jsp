@@ -9,6 +9,9 @@
 <html lang="ko">
 <head>
     <title>회원 가입</title>
+    <p>
+        현재시간: <%=java.time.LocalDateTime.now()%>
+    </p>
 
     <script src="https://code.jquery.com/jquery-3.6.4.js"
             integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
