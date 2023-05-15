@@ -1,0 +1,12 @@
+<%@ page import="com.google.gson.JsonObject" %>
+<%@ page import="com.google.gson.JsonElement" %>
+<%@ page contentType="application/json;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" %>
+<%
+    JsonObject jsonObject = new JsonObject();
+
+    jsonObject.addProperty("result", true);
+    jsonObject.addProperty("message", "아이디가 이미 존재합니다.");
+
+
+%>
+<%=jsonObject.toString()%>
