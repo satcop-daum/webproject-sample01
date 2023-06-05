@@ -5,40 +5,87 @@ import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActorService {
+public class ActorService extends BaseService {
 
+    public static void main(String[] args) {
+        ActorService actorService = new ActorService();
+        /*
+        List<Actor> actors = actorService.getActorList();
+        for (Actor actor : actors) {
+            System.out.println("배우:" + actor.getName());
+        }
+        */
+
+        String code = "10000014'; drop database; ";
+        actorService.deleteActor(code);
+
+    }
 
     public List<Actor> getActorList() {
-
-        String url = "jdbc:mysql://172.16.204.102:3306/kobis_db";
-        String dbUserId = "kobis";
-        String dbPwd = "1234";
 
         List<Actor> result=  new ArrayList<>();
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            Connection connection = DriverManager.getConnection(url, dbUserId, dbPwd);
-            String sql = " select name, eng_name, birth from actor limit 10 ";
+            Connection connection = getConnection();
+            String sql = " select code, name, eng_name, birth from actor limit 10 ";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
                 Actor actor = new Actor();
-                actor.setName( rs.getString(1) );
-                actor.setEngName( rs.getString(2));
-                actor.setBirth( rs.getString(3));
+                actor.setCode(rs.getString(1));
+                actor.setName( rs.getString(2) );
+                actor.setEngName( rs.getString(3));
+                actor.setBirth( rs.getString(4));
                 result.add(actor);
             }
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         return result;
     }
 
+    public void deleteActor(String code) {
+
+        String sql = " delete from actor where code = ? ";
+        System.out.println(sql);
+
+        try {
+            Connection connection = super.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, code);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

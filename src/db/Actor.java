@@ -2,9 +2,18 @@ package db;
 
 public class Actor {
 
+    String code;
     String name;
     String engName;
     String birth;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getName() {
         return name;

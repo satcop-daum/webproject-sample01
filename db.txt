@@ -2,3 +2,11 @@
 -- 172.16.204.102/3306
 -- kobis/1234
 
+
+jdbc: mariadb
+ip: 218.159.217.94
+port: 43307
+id: kobis
+password: 1234
+instance: kobis_db
+
