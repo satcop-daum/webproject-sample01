@@ -18,6 +18,14 @@
             integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
             crossorigin="anonymous"></script>
     <script>
+        function updateActor(_this, code) {
+            const name = $(_this).closest('tr').find('input[name=name]').val();
+            const engName = $(_this).closest('tr').find('input[name=engName]').val();
+
+            const url = 'actor-update-submit.jsp?code=' + code + '&name=' + name + '&engName=' + engName;
+            location.href = url;
+        }
+
         function deleteActor(code) {
 
             if (!confirm(' 삭제하시겠습니까? ')) {
@@ -25,7 +33,7 @@
             }
 
             //삭제진행!!!
-            location.href = 'actor-delete-submit.jsp?code=' + code;
+            location.href = `actor-delete-submit.jsp?code=${code}`;
         }
 
         $(function() {
@@ -54,12 +62,18 @@
         <tbody>
             <%for (Actor actor : actors) { %>
             <tr>
-                <td><%=actor.getName()%></td>
-                <td><%=actor.getEngName()%></td>
+                <td>
+                    <input type="text" name="name" value="<%=actor.getName()%>"/>
+                </td>
+                <td>
+                    <input type="text" name="engName" value="<%=actor.getEngName()%>"/>
+                </td>
                 <td><%=actor.getBirth()%></td>
                 <td>
-                    <button type="button">수정</button>
-                    <button onclick="deleteActor('<%=actor.getCode()%>')" type="button">삭제</button>
+                    <button onclick="updateActor(this, '<%=actor.getCode()%>')" type="button">수정</button>
+                    <button onclick="deleteActor('<%=actor.getCode()%>')"
+                            type="button">삭제</button>
+                    <a href="actor-delete-submit.jsp?code=<%=actor.getCode()%>">삭제</a>
                 </td>
             </tr>
             <%}%>

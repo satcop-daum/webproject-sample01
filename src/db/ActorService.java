@@ -62,8 +62,35 @@ public class ActorService extends BaseService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void updateActor(String code, String name, String engName) {
+
+        String sql = " update actor set name = ?, eng_name = ? where code = ? ";
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, engName);
+            preparedStatement.setString(3, code);
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            close(preparedStatement);
+            close(connection);
+        }
+
 
     }
+
+
 
 
 }
